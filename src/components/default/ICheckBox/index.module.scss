@@ -1,0 +1,9 @@
+.container {
+  display: flex;
+  font-size: var(--font-size);
+  :global {
+    .ant-checkbox-wrapper {
+      font-size: var(--font-size);
+    }
+  }
+}

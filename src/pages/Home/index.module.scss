@@ -1,0 +1,23 @@
+.conatiner {
+  // width: 100vw;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-wrap: nowrap;
+
+  .leftContent {
+    width: 265px;
+    // background: red;
+    padding-top: 60px;
+  }
+  .midContent {
+    width: calc(100% - 530px);
+    height: 100%;
+    overflow: hidden;
+  }
+  .rightContent {
+    width: 265px;
+    padding-top: 60px;
+  }
+}

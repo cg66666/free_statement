@@ -1,0 +1,13 @@
+.container {
+  display: flex;
+  height: 50px;
+  align-items: center;
+  font-size: 14px;
+  justify-content: right;
+  padding: 0 10px;
+  .tip {
+    color: rgb(150, 149, 149);
+    font-size: 11px;
+    margin-right: 10px;
+  }
+}

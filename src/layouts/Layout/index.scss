@@ -1,0 +1,14 @@
+.layoutOutline {
+  height: 100vh;
+  min-width: 1200px;
+  display: flex;
+  flex-direction: column;
+  background: #d9f3fe;
+  .outletContainer {
+    flex: 1;
+    overflow: hidden;
+    border-top: 1px solid #0f206f;
+    border-radius: 12px 12px 0 0;
+    // background: black;
+  }
+}

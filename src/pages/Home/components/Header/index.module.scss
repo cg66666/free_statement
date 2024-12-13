@@ -1,0 +1,23 @@
+.conatiner {
+  width: 100%;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  // padding: 0 25px;
+  position: relative;
+  .rightContainer {
+    position: absolute;
+    right: 0;
+    height: 60px;
+    align-items: center;
+    display: flex;
+    font-size: 12px;
+    .label {
+      margin: 0 10px;
+    }
+    .inputNumber {
+      height: 30px;
+      width: 60px;
+    }
+  }
+}
