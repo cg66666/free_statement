@@ -3,18 +3,21 @@
  * @Author: cg
  * @Date: 2024-11-14 14:10:19
  * @LastEditors: cg
- * @LastEditTime: 2024-12-03 11:02:56
+ * @LastEditTime: 2024-12-29 16:21:15
  */
 // components/Home.js
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Dropdown, Space, type MenuProps, Popconfirm, type PopconfirmProps, message } from 'antd';
 import { CloseCircleFilled, ExclamationCircleFilled } from '@ant-design/icons';
+import { Button } from 'antd';
+import { post } from '@/ajax';
 import {
   type tableItemConfigType,
   useTableConfig,
   tableModeEnum,
   useComponentDrag,
-  DomTypeEnum
+  DomTypeEnum,
+  useLoginStore
 } from '@/store';
 import _ from 'lodash';
 import Header from './components/Header';
@@ -45,17 +48,28 @@ const Home: React.FC = () => {
     tableConfig,
     setTableConfig,
     tableItemSelectedList,
-    setTableItemSelectedList
+    setTableItemSelectedList,
+    templateConfig,
+    setTemplateConfig
   } = useTableConfig();
+
+  const { userName, checkLogin, toLogin, toLogOut, config } = useLoginStore();
 
   const { draggingDomConfig, setDraggingDomConfig } = useComponentDrag();
 
-  // const {
-  //   tableItemSelectedList,
-  //   setTableItemSelectedList,
-  //   componentSelectedList,
-  //   setComponentSelectedList
-  // } = useSelected();
+  const [isLoading, setIsLoading] = useState(false);
+
+  const saveTable = async () => {
+    setIsLoading(true);
+
+    const res = await post('/statement/saveTable', {
+      config: { tableConfig, templateConfig }
+    });
+    if (res.successful) {
+      message.success('保存成功！');
+    }
+    setIsLoading(false);
+  };
 
   const containerMouseMove = _.throttle((e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     if (draggingDomConfig) {
@@ -131,6 +145,9 @@ const Home: React.FC = () => {
 
   // 关闭浏览器的默认缩放功能
   useEffect(() => {
+    // 首次进入页面判断是否为登录
+    checkLogin();
+
     const wheelFunc = (e: WheelEvent) => {
       // 检查是否按下了 Ctrl 键
       if (e.ctrlKey) {
@@ -144,9 +161,37 @@ const Home: React.FC = () => {
     };
   }, []);
 
+  useEffect(() => {
+    if (config && config.tableConfig && config.templateConfig) {
+      setTableConfig(_.cloneDeep(config.tableConfig));
+      setTemplateConfig(_.cloneDeep(config.templateConfig));
+    }
+  }, [config]);
+
   return (
     <div className={s.conatiner} onMouseMove={containerMouseMove} onMouseUp={containerMouseUp}>
       <div className={s.leftContent}>
+        <div className={s.loginHeader}>
+          <div className={s.userName}>{userName ? `用户名：${userName}` : ''}</div>
+          <div style={{ display: 'flex' }}>
+            {userName ? (
+              <>
+                <Button style={{ height: 30, marginRight: 10 }} onClick={toLogOut}>
+                  退出登录
+                </Button>
+                <Button style={{ height: 30 }} loading={isLoading} onClick={saveTable}>
+                  保存
+                </Button>
+              </>
+            ) : (
+              <>
+                <Button style={{ height: 30 }} onClick={toLogin}>
+                  登录
+                </Button>
+              </>
+            )}
+          </div>
+        </div>
         <LeftMenu />
       </div>
       <div className={s.midContent}>

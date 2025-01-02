@@ -3,7 +3,7 @@
  * @Author: cg
  * @Date: 2024-11-20 16:36:53
  * @LastEditors: cg
- * @LastEditTime: 2024-12-13 09:58:17
+ * @LastEditTime: 2024-12-26 09:30:57
  */
 import React, { useState, memo, useEffect, useRef, useMemo } from 'react';
 import {
@@ -22,7 +22,7 @@ import {
   Slider,
   Select
 } from 'antd';
-import { HolderOutlined, DeleteOutlined } from '@ant-design/icons';
+import { HolderOutlined, DeleteOutlined, QuestionCircleOutlined } from '@ant-design/icons';
 import {
   type tableItemType,
   type tableItemConfigType,
@@ -36,7 +36,7 @@ import {
   tableModeEnum,
   DomTypeEnum
 } from '@/store';
-import defaultComponentList, { DefaultComponentNameEnum, InquireType } from '@/components/default';
+import { defaultComponentList, DefaultComponentNameEnum, InquireType } from '@/components/default';
 import _ from 'lodash';
 import s from './index.module.scss';
 
@@ -104,7 +104,10 @@ const ConfigContent: React.FC<IProps> = memo(() => {
       forceRender: true,
       label: <div style={{ fontSize: '14px' }}>边设置：</div>,
       children: (
-        <>
+        <div style={{ position: 'relative' }}>
+          <Tooltip title="因为页面重叠相互覆盖等特殊场景，修改边框效果可能会不明显，需要两边同时修改">
+            <QuestionCircleOutlined style={{ position: 'absolute' }} />
+          </Tooltip>
           <div className={s.square}>
             <div
               className={`${s.triangle} ${s.top} ${position === 'top' ? s.selectedTriangle : ''}`}
@@ -268,7 +271,7 @@ const ConfigContent: React.FC<IProps> = memo(() => {
               <InputNumber min={0} />
             </Form.Item>
           </div>
-        </>
+        </div>
       )
     }
   ];
@@ -277,7 +280,7 @@ const ConfigContent: React.FC<IProps> = memo(() => {
     { name: string; chineseName: string }[]
   >([]);
 
-  console.log('configComponentList', configComponentList);
+  // console.log('configComponentList', configComponentList);
 
   const [list, setList] = useState([
     { name: '111', chineseName: '文本标签' },

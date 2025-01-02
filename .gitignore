@@ -9,6 +9,7 @@ lerna-debug.log*
 
 node_modules
 dist
+free_statement
 dist-ssr
 *.local
 

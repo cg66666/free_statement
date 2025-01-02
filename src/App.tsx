@@ -3,9 +3,9 @@
  * @Author: 朱晨光
  * @Date: 2023-09-16 19:34:11
  * @LastEditors: cg
- * @LastEditTime: 2024-11-14 15:42:06
+ * @LastEditTime: 2025-01-02 14:24:21
  */
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   RouterProvider,
   createBrowserRouter,
@@ -14,20 +14,19 @@ import {
 } from 'react-router-dom';
 import Layout from '@/layouts/Layout';
 import Home from '@/pages/Home';
-import About from '@/pages/About';
+import Show from '@/pages/Show';
 import './App.scss';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="/" element={<Layout />}>
+    <Route path={`/${import.meta.env.VITE_PREFIX}/`} element={<Layout />}>
       <Route index element={<Home />} />
+      <Route path="show" element={<Show />} />
     </Route>
   )
 );
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
     <>
       <RouterProvider router={router} />

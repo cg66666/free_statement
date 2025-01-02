@@ -3,9 +3,9 @@
  * @Author: cg
  * @Date: 2024-11-17 21:06:54
  * @LastEditors: cg
- * @LastEditTime: 2024-12-09 09:29:38
+ * @LastEditTime: 2024-12-27 17:45:59
  */
-import { useEffect, useMemo, useRef, useState, useCallback, memo } from 'react';
+import React, { useEffect, useMemo, useRef, useState, useCallback, memo } from 'react';
 import {
   Dropdown,
   Space,
@@ -26,6 +26,7 @@ import {
   FlexDirectionEnum,
   DomTypeEnum
 } from '@/store';
+import components, { type defaultComponentConfig } from '@/components/default';
 import Text from '@/components/default/Text';
 import _ from 'lodash';
 import s from './index.module.scss';
@@ -525,6 +526,19 @@ const Content: React.FC = memo(() => {
     setIsErroeConfirm(false);
   }, [tableMode]);
 
+  // const aaa = (item2: defaultComponentConfig, propsConfig, styleConfig) => {
+  //   const item3 = components[item2.renderDom];
+  //   return (
+  //     <item3
+  //       data-type={DomTypeEnum.ISCOMPONENT}
+  //       data-pid={name}
+  //       data-id={item2.id}
+  //       {...propsConfig}
+  //       style={styleConfig}
+  //     />
+  //   );
+  // };
+
   return (
     <div className={s.outine} onMouseLeave={onMouseLeaveDrawBoard}>
       <Dropdown
@@ -670,8 +684,14 @@ const Content: React.FC = memo(() => {
                               propsConfig[item2.props[name3].name] = item2.props[name3].value;
                             }
                           });
-                          // console.log('propsConfig', propsConfig);
-
+                          //@ts-ignore
+                          const targetDom = React.createElement(components[item2.renderDom], {
+                            ...propsConfig,
+                            'data-type': DomTypeEnum.ISCOMPONENT,
+                            'data-pid': name,
+                            'data-id': item2.id,
+                            style: styleConfig
+                          });
                           return (
                             <Tooltip
                               title={item2.chineseName + ' - ' + item2.id.slice(0, 5)}
@@ -690,13 +710,32 @@ const Content: React.FC = memo(() => {
                                 }
                                 `}
                               >
-                                <item2.renderDom
+                                {targetDom}
+                                {/* {aaa(item2, propsConfig, styleConfig)} */}
+                                {/* {createElement(components[item2.renderDom], {
+                                  ...propsConfig,
+                                  style: styleConfig
+                                  // [data-type]: DomTypeEnum.ISCOMPONENT,
+                                  // [data-pid]: name,
+                                  // [data-id]: item2.id
+                                })} */}
+                                {/* {
+                                  <targetDom
+                                    {...propsConfig}
+                                    data-type={DomTypeEnum.ISCOMPONENT}
+                                    data-pid={name}
+                                    data-id={item2.id}
+                                    style={styleConfig}
+                                  />
+                                } */}
+
+                                {/* <item2.renderDom
                                   {...propsConfig}
                                   data-type={DomTypeEnum.ISCOMPONENT}
                                   data-pid={name}
                                   data-id={item2.id}
                                   style={styleConfig}
-                                />
+                                /> */}
                               </div>
                             </Tooltip>
                           );

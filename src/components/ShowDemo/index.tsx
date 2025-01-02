@@ -3,7 +3,7 @@
  * @Author: cg
  * @Date: 2024-11-18 14:47:09
  * @LastEditors: cg
- * @LastEditTime: 2024-12-11 16:10:56
+ * @LastEditTime: 2024-12-26 10:27:21
  */
 import React, { useEffect, useState, useRef } from 'react';
 import { Tooltip } from 'antd';
@@ -52,35 +52,6 @@ const ShowDemo: React.FC<IProps> = ({ classs, itemConfig }) => {
         }}
         ref={dom}
       >
-        {/* <Tooltip
-          placement="right"
-          // color="white"
-          // style={}
-          fresh={true}
-          // open={true}
-          onOpenChange={(open) => {
-            if (isDemoInit && open) {
-              setIsDemoInit(false);
-            }
-          }}
-          style={{ background: 'white' }}
-          title={
-            <div
-              style={{
-                padding: '0 10px',
-                minHeight: '200px',
-                minWidth: '40px',
-                display: 'flex',
-                alignItems: 'center'
-                // background: 'white'
-              }}
-            >
-              {isDemoInit ? <></> : <itemConfig.renderDom />}
-            </div>
-          }
-        >
-          <ZoomInOutlined className={s.icon}></ZoomInOutlined>
-        </Tooltip> */}
         {itemConfig.chineseName}
       </div>
       {draggingDomConfig && draggingDomConfig.chineseName === itemConfig.chineseName && (

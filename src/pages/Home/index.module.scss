@@ -9,7 +9,16 @@
   .leftContent {
     width: 265px;
     // background: red;
-    padding-top: 60px;
+    // padding-top: 60px;
+    .loginHeader {
+      height: 60px;
+      padding-left: 5px;
+      .userName {
+        line-height: 25px;
+        height: 25px;
+        font-size: 14px;
+      }
+    }
   }
   .midContent {
     width: calc(100% - 530px);

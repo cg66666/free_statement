@@ -3,7 +3,7 @@
  * @Author: cg
  * @Date: 2024-11-18 14:01:32
  * @LastEditors: cg
- * @LastEditTime: 2024-12-09 00:27:54
+ * @LastEditTime: 2024-12-25 10:45:55
  */
 import React from 'react';
 import { type defaultType } from '@/components/default';
@@ -13,7 +13,7 @@ import s from './index.module.scss';
 interface IProps extends defaultType {
   label?: string;
   defaultValue?: any;
-  style?: React.CSSProperties;
+  style: React.CSSProperties;
   showUndeLine?: boolean;
   leftRatio?: number;
   placeholder?: string;
@@ -25,10 +25,11 @@ const Input: React.FC<IProps> = ({
   showUndeLine,
   leftRatio = 30,
   placeholder = '提示语',
+  style,
   ...rest
 }) => {
   return (
-    <div className={s.container} {...rest}>
+    <div className={s.container} style={{ ...style }} {...rest}>
       <div className={s.lable} style={{ width: leftRatio + '%' }}>
         {label}
       </div>
@@ -36,7 +37,7 @@ const Input: React.FC<IProps> = ({
         <input
           className={s.inputInstance}
           defaultValue={defaultValue}
-          style={{ width: '100%' }}
+          style={{ width: '100%', fontSize: style.fontSize }}
           placeholder={placeholder}
         ></input>
         {!!showUndeLine && <div className={s.underLine} />}

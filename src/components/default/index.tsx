@@ -3,11 +3,17 @@
  * @Author: cg
  * @Date: 2024-11-18 14:29:44
  * @LastEditors: cg
- * @LastEditTime: 2024-12-13 15:12:32
+ * @LastEditTime: 2024-12-26 09:32:47
  */
 import Text from './Text';
 import Input from './Input';
 import ICheckBox from './ICheckBox';
+
+export default {
+  Text,
+  Input,
+  ICheckBox
+};
 
 export type defaultType = {
   ['data-id']: string;
@@ -38,7 +44,7 @@ export enum DefaultComponentNameEnum {
 export type defaultComponentConfig = {
   chineseName: string;
   name: DefaultComponentNameEnum;
-  renderDom: React.FC<any>;
+  renderDom: DefaultComponentNameEnum;
   desc?: string;
   props: Record<
     string,
@@ -56,11 +62,11 @@ export type defaultComponentConfig = {
   >;
 };
 
-const defaultComponentList: defaultComponentConfig[] = [
+export const defaultComponentList: defaultComponentConfig[] = [
   {
     chineseName: '文本标签',
     name: DefaultComponentNameEnum.TEXT,
-    renderDom: Text,
+    renderDom: DefaultComponentNameEnum.TEXT,
     // desc:'',
     props: {
       text: {
@@ -192,7 +198,7 @@ const defaultComponentList: defaultComponentConfig[] = [
   {
     chineseName: '输入框',
     name: DefaultComponentNameEnum.INPUT,
-    renderDom: Input,
+    renderDom: DefaultComponentNameEnum.INPUT,
     props: {
       label: {
         label: '标签',
@@ -288,7 +294,7 @@ const defaultComponentList: defaultComponentConfig[] = [
   {
     chineseName: '多选框',
     name: DefaultComponentNameEnum.ICHECKBOX,
-    renderDom: ICheckBox,
+    renderDom: DefaultComponentNameEnum.ICHECKBOX,
     props: {
       width: {
         label: '宽度',
@@ -340,5 +346,3 @@ const defaultComponentList: defaultComponentConfig[] = [
 ];
 
 // export type defaultComponentNameList = keyof typeof defaultComponentList
-
-export default defaultComponentList;

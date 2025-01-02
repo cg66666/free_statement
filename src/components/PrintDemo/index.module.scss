@@ -1,0 +1,95 @@
+.outine {
+  width: 100vw;
+  height: 100vh;
+  overflow: scroll;
+}
+.drawingBoard {
+  box-sizing: border-box;
+  padding: 25px;
+  position: relative;
+  user-select: none;
+  box-sizing: border-box;
+  .gridItem {
+    padding: 5px;
+    position: relative;
+  }
+
+  .gridContainer {
+    display: grid;
+    font-size: 14px;
+    margin: 25px auto;
+    border: 2px solid black;
+    overflow: hidden;
+    padding: 0;
+    .renderDom {
+      // overflow: hidden;
+      &::before {
+        content: '';
+        position: absolute;
+        left: -0.3px;
+        right: -1.7px;
+        top: -1px;
+        bottom: -1.5px;
+        border-right: var(--border-right-width) var(--border-right-style) var(--border-right-color);
+        border-left: var(--border-left-width) var(--border-left-style) var(--border-left-color);
+        border-top: var(--border-top-width) var(--border-top-style) var(--border-top-color);
+        border-bottom: var(--border-bottom-width) var(--border-bottom-style)
+          var(--border-bottom-color);
+        transition: all 0.3s;
+      }
+      .renderItem {
+        transition: 0.4s;
+        z-index: 9;
+      }
+    }
+    // &::before {
+    //   content: '';
+    //   position: absolute;
+    //   left: -1px;
+    //   right: 0px;
+    //   top: -1px;
+    //   bottom: 0px;
+    //   border: 2.5px solid black;
+    // }
+  }
+
+  /*定义滚动条高宽及背景高宽分别对应横竖滚动条的尺寸*/
+  &::-webkit-scrollbar {
+    width: 8px;
+    height: 6px;
+    // background-color:#F5F5F5;
+  }
+  //滚动条里面的小方块，能上下左右移动（取决于是垂直滚动条还是水平滚动条）
+  &::-webkit-scrollbar-thumb {
+    // 宽度无效，由上面的决定
+    // width: 5px;
+    // -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+    // background: linear-gradient(270deg, #64e6c0 0%, #687ff9 100%);
+    background: rgb(220, 220, 220);
+    // 控制右侧间隙，会导致圆角不完整问题
+    border-right: 3px solid white;
+    /*滚动条里面小方块*/
+    border-radius: 513px;
+    box-shadow: 8px 0 0 rgb(220, 220, 220) inset;
+  }
+  //滑块的浮动行为
+  &::-webkit-scrollbar-thumb:hover {
+    // box-shadow: 8px 0 0 #4a4a4a inset;
+    cursor: pointer;
+  }
+  //滚动条的轨道（里面装有thumb）滚动槽
+  &::-webkit-scrollbar-track {
+    // 无效
+    // padding-right: 93px;
+    // border-right: 10px solid white;
+    /*滚动条里面轨道*/
+    // -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+    // background: #262335;
+    // margin: 3px;
+  }
+  // &::-webkit-scrollbar-corner {
+  //   /* 垂直和水平的交叉角 */
+  //   background: #262335;
+  // }
+}

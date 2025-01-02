@@ -9,7 +9,7 @@
   overflow: scroll;
   box-sizing: border-box;
   padding: 25px;
-  border: 2px solid black;
+  border: 1px solid black;
   position: relative;
   user-select: none;
   .gridItem {
@@ -21,11 +21,6 @@
     display: grid;
     font-size: 14px;
     .renderDom {
-      // background: var(--background-color);
-      // padding-left: var(--padding-left);
-      // padding-right: var(--padding-right);
-      // padding-top: var(--padding-top);
-      // padding-bottom: var(--padding-bottom);
       &::before {
         content: '';
         position: absolute;
@@ -38,64 +33,12 @@
         border-top: var(--border-top-width) var(--border-top-style) var(--border-top-color);
         border-bottom: var(--border-bottom-width) var(--border-bottom-style)
           var(--border-bottom-color);
-        transition: all 0.3s;
       }
-      &:hover {
-        &::before {
-          box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-        }
-      }
+
       .renderItem {
-        transition: 0.4s;
         z-index: 9;
-        cursor: pointer;
-        &:hover {
-          box-shadow: rgba(149, 157, 165, 0.623) 0px 8px 24px;
-        }
-      }
-      .selectedRenderItem {
-        box-shadow: rgba(0, 0, 0, 0.45) 0px 6px 20px;
       }
     }
-
-    .selectedItem {
-      &::before {
-        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-      }
-    }
-    .configingItem {
-      &::before {
-        box-shadow:
-          rgba(50, 50, 93, 0.25) 0px 12px 24px -4.8px inset,
-          rgba(0, 0, 0, 0.2) 0px 7.2px 12.8px -4.8px inset !important;
-      }
-    }
-    .markItem {
-      // grid-column: 2 / 5;
-      // grid-row: 3 / 4;
-      // transition: all 0.2s;
-      text-align: center;
-      position: relative;
-      &::before {
-        content: '';
-        position: absolute;
-        left: -2px;
-        right: 0px;
-        top: -2px;
-        bottom: 0px;
-        border: 4px solid #418f1f;
-        transition: all 0.5s;
-        z-index: 999;
-      }
-    }
-    .errorMarkItem {
-      &::before {
-        border: 4px solid red;
-      }
-    }
-  }
-
-  .editBorder {
     &::before {
       content: '';
       position: absolute;
@@ -107,42 +50,6 @@
     }
   }
 
-  .editItem {
-    cursor: pointer;
-  }
-
-  .templateGridContainer {
-    position: absolute;
-    left: 25px;
-    top: 25px;
-    display: grid;
-    font-size: 14px;
-    & > div {
-      &::before {
-        content: '';
-        position: absolute;
-        left: -0.5px;
-        right: 0px;
-        top: -0.5px;
-        bottom: 0px;
-        border: 1px solid #0000002f;
-      }
-    }
-  }
-
-  .underMode {
-    z-index: -1;
-    transition: 0.5s all;
-    opacity: 0;
-    & > div {
-      &::before {
-        border: 1px solid #cccccc38;
-      }
-    }
-  }
-  .showUnderMode {
-    opacity: 1;
-  }
   /*定义滚动条高宽及背景高宽分别对应横竖滚动条的尺寸*/
   &::-webkit-scrollbar {
     width: 8px;

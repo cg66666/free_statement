@@ -3,11 +3,11 @@
  * @Author: cg
  * @Date: 2024-08-18 15:40:54
  * @LastEditors: cg
- * @LastEditTime: 2024-11-21 13:35:13
+ * @LastEditTime: 2025-01-02 14:08:59
  */
 import axios, { AxiosError, type AxiosRequestConfig, type AxiosResponse } from 'axios';
-import { message as message2, notification } from 'antd';
-import cac from '@/utils/cac';
+import { notification } from 'antd';
+import { getCookie, toLogin } from '@/utils';
 
 // code码提示语
 const codeMessage: Record<number, string> = {
@@ -29,37 +29,23 @@ const codeMessage: Record<number, string> = {
 };
 
 export interface IData<T> {
-  code: string;
+  code: number;
+  msg: string;
   data: T;
-  error: string;
   successful: boolean;
-  message: string;
-
-  // 部分特殊接口返回
-  status?: number;
-  msg?: string;
 }
-
-/** 消息通知，默认时间 */
-const duration = 2;
-/** 成功返回码 */
-const successCode = '000000';
-
 export const instance = axios.create({
-  withCredentials: true,
-  timeout: 1000 * 60 * 30 // 设置超时时间
+  baseURL: `/${import.meta.env.VITE_PREFIX}`,
+  // baseURL: '/mobile_Vue3',
+  timeout: 30 * 1000 // 统一设置超时时间
 });
 
 instance.interceptors.request.use(
   (req) => {
-    const c_token = cac.common.getCookie('XSRF-TOKEN');
-    const { access_token } = cac.token.loadToken();
-    if (access_token) {
-      localStorage.setItem('access_token', access_token);
+    const XToken = getCookie('S-TOKEN');
+    if (XToken) {
+      req.headers['S-Token'] = XToken;
     }
-    req.headers['X-Requested-With'] = 'XMLHttpRequest';
-    req.headers['Authorization'] = `bearer ${access_token}`;
-    req.headers['X-XSRF-TOKEN'] = c_token;
     return req;
   },
   (error) => Promise.reject(error)
@@ -67,50 +53,28 @@ instance.interceptors.request.use(
 
 instance.interceptors.response.use(
   (resp: AxiosResponse) => {
-    const { data: _data, config } = resp;
-    const { code, message } = _data;
-    // 针对权限接口的特殊处理
-    if (config.url && config.url === '/cosmo-demo/api/v1/permission' && resp.statusText === 'OK') {
-      return { successful: true, ..._data };
-    }
-    if (code === successCode) return { successful: true, ..._data };
-    // 错误提示大于20个字的需要更长的阅读时间
-    message2.warning(message);
+    const { data: _data } = resp;
+    const { code, msg } = _data;
+    if (code === '00000') return { successful: true, ..._data };
+    notification.warning({
+      message: msg
+    });
     return { successful: false, ..._data };
   },
   (error: AxiosError) => {
-    const { response, request } = error;
-    if (response && response.status) {
-      const { status } = response;
-      const data = response.data as any;
-      if (status === 401) {
-        notification.error({
-          description: codeMessage[status],
-          message: status,
-          duration
-        });
-        // 前往登录逻辑
-        cac.loginUtil.login();
-      }
-      if (status === 403) {
-        const msg = data && data.msg ? data.msg : data ? data : codeMessage['403']; // 对403状态码跳转至统一的403页面
-        window.location.href = '/403?msg=' + msg;
-      }
-      if (status && status === 500) {
-        window.location.href = '/500';
-      }
-    } else if (!response) {
-      if (!request.options.skipErrorMessage) {
-        notification.error({
-          description: '您的网络发生异常，无法连接服务器',
-          message: '网络异常'
-        });
-      }
+    console.log('error', error);
+    const status: number = error.response?.status || 404;
+    notification.error({
+      message: String(status),
+      description: codeMessage[status]
+    });
+    // 登录相关
+    // console.log('status', error.response?.status);
+
+    if (error.response?.status === 401) {
+      // toLogin();
     }
-    return {
-      ...(error.response?.data as any),
-      successful: false
-    };
+    return Promise.reject(error);
   }
 );
 
