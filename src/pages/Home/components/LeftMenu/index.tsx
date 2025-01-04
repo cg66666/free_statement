@@ -3,7 +3,7 @@
  * @Author: cg
  * @Date: 2024-11-18 11:47:52
  * @LastEditors: cg
- * @LastEditTime: 2024-12-27 10:11:03
+ * @LastEditTime: 2025-01-05 03:54:00
  */
 import React, { useEffect, memo } from 'react';
 import { Tooltip } from 'antd';
@@ -19,7 +19,7 @@ const LeftMenu: React.FC = memo(() => {
 
   return (
     <div className={s.container}>
-      <div className={s.title}>组件库</div>
+      <div className={s.title}>组件库_打包测试</div>
       <div className={s.list}>
         {tableMode === tableModeEnum.INIT && (
           <div className={s.mark}>
