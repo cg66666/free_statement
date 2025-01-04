@@ -3,7 +3,7 @@
  * @Author: cg
  * @Date: 2024-11-20 16:16:46
  * @LastEditors: cg
- * @LastEditTime: 2024-12-27 17:08:01
+ * @LastEditTime: 2025-01-02 18:08:41
  */
 import { create } from 'zustand';
 import { notification } from 'antd';
@@ -53,13 +53,15 @@ export const useLoginStore = create<IState>((set, get) => ({
         console.log('err', err);
       }
     } else if (SToken) {
-      const res = await Get('/statement/checkToken');
-      if (res.successful) {
+      const res = await Get<{ ok: boolean }>('/statement/checkToken');
+      if (res.successful && res.data.ok) {
         // mode.value = ModeEnum.LOGGED;
         const res = await Get<{ name: string; config: any }>('/statement/getUserInfo');
         if (res.successful) {
           set({ userName: res.data.name, config: res.data.config });
         }
+      } else {
+        get().toLogOut();
       }
     }
   },
@@ -68,7 +70,7 @@ export const useLoginStore = create<IState>((set, get) => ({
     const res = await Get('/statement/logout');
     if (res.successful) {
       // 清除cookie
-      document.cookie = 'S-TOKEN' + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+      // document.cookie = 'S-TOKEN' + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
       set({ userName: '' });
       notification.info({ message: '退出成功！' });
     }
