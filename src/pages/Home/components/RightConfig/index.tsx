@@ -3,7 +3,7 @@
  * @Author: cg
  * @Date: 2024-11-19 14:40:26
  * @LastEditors: cg
- * @LastEditTime: 2024-12-11 15:41:29
+ * @LastEditTime: 2025-01-07 15:41:09
  */
 import React, { useEffect, memo, useState } from 'react';
 import {
@@ -74,7 +74,7 @@ const RightConfig: React.FC<IProps> = memo((prop) => {
   };
 
   return (
-    <div className={s.container}>
+    <div className={s.container} id="rightContent">
       {tableMode === tableModeEnum.INIT ? (
         <div className={s.unitList}>
           <div className={s.count}>单元块总数：{nameList.length}</div>

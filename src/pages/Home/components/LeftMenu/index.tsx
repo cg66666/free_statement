@@ -3,14 +3,13 @@
  * @Author: cg
  * @Date: 2024-11-18 11:47:52
  * @LastEditors: cg
- * @LastEditTime: 2025-01-05 03:54:00
+ * @LastEditTime: 2025-01-07 14:41:51
  */
 import React, { useEffect, memo } from 'react';
 import { Tooltip } from 'antd';
 import { InfoCircleOutlined } from '@ant-design/icons';
 import { type tableItemConfigType, useTableConfig, tableModeEnum } from '@/store';
 import { defaultComponentList, type defaultComponentConfig } from '@/components/default';
-import Text from '@/components/default/Text';
 import ShowDemo from '@/components/ShowDemo';
 import s from './index.module.scss';
 
@@ -19,7 +18,7 @@ const LeftMenu: React.FC = memo(() => {
 
   return (
     <div className={s.container}>
-      <div className={s.title}>组件库_打包测试</div>
+      <div className={s.title}>组件库</div>
       <div className={s.list}>
         {tableMode === tableModeEnum.INIT && (
           <div className={s.mark}>
@@ -29,16 +28,12 @@ const LeftMenu: React.FC = memo(() => {
             <div>模板编辑下无法使用！</div>
           </div>
         )}
-        {defaultComponentList.map((item, index) => {
-          return <ShowDemo classs={s.item} itemConfig={item} key={index} />;
-        })}
+        <div id="components">
+          {defaultComponentList.map((item, index) => {
+            return <ShowDemo classs={s.item} itemConfig={item} key={index} />;
+          })}
+        </div>
       </div>
-      {/* <div className={s.title}>自定义组件库</div>
-      <div className={s.list}>
-        <Tooltip placement="right" title={<Text />}>
-          <div className={s.item}>文本标签</div>
-        </Tooltip>
-      </div> */}
     </div>
   );
 });

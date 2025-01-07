@@ -3,7 +3,7 @@
  * @Author: cg
  * @Date: 2024-11-17 21:06:54
  * @LastEditors: cg
- * @LastEditTime: 2024-12-27 17:46:07
+ * @LastEditTime: 2025-01-07 15:39:53
  */
 import React, { memo, useRef, useState } from 'react';
 import { useTableConfig, FlexAlignEnum, FlexDirectionEnum } from '@/store';
@@ -18,16 +18,12 @@ interface IProps {
 const PrintDemo: React.FC<IProps> = memo(({ ...rest }) => {
   const { tableConfig, templateConfig } = useTableConfig();
 
-  console.log('tableConfig', tableConfig);
-
   const { row, column, baseSize } = templateConfig;
-
-  const [isSpin, setIsSpin] = useState(false);
 
   const editBorder = useRef(null);
 
   return (
-    <div className={s.outine} {...rest}>
+    <div {...rest}>
       <div className={s.drawingBoard} ref={editBorder}>
         <div
           className={`${s.gridContainer} `}
@@ -117,6 +113,7 @@ const PrintDemo: React.FC<IProps> = memo(({ ...rest }) => {
                     ...cssVariates,
                     ...target.style
                   }}
+                  id={target.id}
                 >
                   {!!Object.keys(target.children).length &&
                     Object.keys(target.children).map((name2) => {

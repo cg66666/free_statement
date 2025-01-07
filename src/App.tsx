@@ -3,7 +3,7 @@
  * @Author: 朱晨光
  * @Date: 2023-09-16 19:34:11
  * @LastEditors: cg
- * @LastEditTime: 2025-01-02 14:24:21
+ * @LastEditTime: 2025-01-07 10:47:47
  */
 import { useState, useEffect } from 'react';
 import {
@@ -19,7 +19,7 @@ import './App.scss';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path={`/${import.meta.env.VITE_PREFIX}/`} element={<Layout />}>
+    <Route path={import.meta.env.VITE_PREFIX} element={<Layout />}>
       <Route index element={<Home />} />
       <Route path="show" element={<Show />} />
     </Route>

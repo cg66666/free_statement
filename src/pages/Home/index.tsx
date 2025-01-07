@@ -3,11 +3,11 @@
  * @Author: cg
  * @Date: 2024-11-14 14:10:19
  * @LastEditors: cg
- * @LastEditTime: 2024-12-29 16:21:15
+ * @LastEditTime: 2025-01-07 14:38:35
  */
 // components/Home.js
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { Dropdown, Space, type MenuProps, Popconfirm, type PopconfirmProps, message } from 'antd';
+import { Tour, type TourProps, message } from 'antd';
 import { CloseCircleFilled, ExclamationCircleFilled } from '@ant-design/icons';
 import { Button } from 'antd';
 import { post } from '@/ajax';
@@ -56,6 +56,9 @@ const Home: React.FC = () => {
   const { userName, checkLogin, toLogin, toLogOut, config } = useLoginStore();
 
   const { draggingDomConfig, setDraggingDomConfig } = useComponentDrag();
+
+  // 漫游式引导
+  const [open, setOpen] = useState<boolean>(false);
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -143,6 +146,36 @@ const Home: React.FC = () => {
     }
   };
 
+  const steps = [
+    {
+      title: '模式选择',
+      description: (
+        <>
+          1、模板编辑，为表单单元格构造，能够新建删除单元格。
+          <br />
+          2、页面编辑，为单元格内部组件构造，能够新建删除组件。
+        </>
+      ),
+      target: () => document.getElementById('modeSelect')
+    },
+    {
+      title: '组件库',
+      description: '仅在页面编辑模式下可使用，可以直接拖拽到单元格中使用。',
+      target: () => document.getElementById('components')
+    },
+    {
+      title: '操作区',
+      description: (
+        <>
+          1、模板编辑，可以直接查看当前所有单元块，并删除对应单元块。
+          <br />
+          2、页面编辑，可以配置当前单元块内部布局配置与内部详细组件配置。
+        </>
+      ),
+      target: () => document.getElementById('rightContent')
+    }
+  ] as TourProps['steps'];
+
   // 关闭浏览器的默认缩放功能
   useEffect(() => {
     // 首次进入页面判断是否为登录
@@ -159,6 +192,14 @@ const Home: React.FC = () => {
     return () => {
       document.removeEventListener('wheel', wheelFunc);
     };
+  }, []);
+
+  // 首次进入页面开启漫游式导航
+  useEffect(() => {
+    const isEntered = localStorage.getItem('isEntered');
+    if (isEntered) return;
+    localStorage.setItem('isEntered', '111');
+    setOpen(true);
   }, []);
 
   useEffect(() => {
@@ -202,6 +243,7 @@ const Home: React.FC = () => {
       <div className={s.rightContent}>
         <RightConfig />
       </div>
+      <Tour open={open} onClose={() => setOpen(false)} steps={steps} />
     </div>
   );
 };

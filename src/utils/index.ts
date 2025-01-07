@@ -6,5 +6,4 @@
  * @LastEditTime: 2024-12-27 15:55:21
  */
 export * from './getCookie';
-export * from './login';
 export * from './getQueryParams';

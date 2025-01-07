@@ -7,7 +7,7 @@
  */
 import axios, { AxiosError, type AxiosRequestConfig, type AxiosResponse } from 'axios';
 import { notification } from 'antd';
-import { getCookie, toLogin } from '@/utils';
+import { getCookie } from '@/utils';
 
 // code码提示语
 const codeMessage: Record<number, string> = {

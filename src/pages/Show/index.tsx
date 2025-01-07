@@ -3,22 +3,28 @@
  * @Author: cg
  * @Date: 2024-11-17 21:06:54
  * @LastEditors: cg
- * @LastEditTime: 2024-12-26 10:28:39
+ * @LastEditTime: 2025-01-07 14:44:56
  */
 import React, { memo } from 'react';
+import { Button } from 'antd';
 import { useTableConfig, FlexAlignEnum, FlexDirectionEnum } from '@/store';
 import components from '@/components/default';
+import { useNavigate } from 'react-router-dom';
 import s from './index.module.scss';
 
 const Show: React.FC = memo(() => {
+  const navigate = useNavigate();
+
   const { tableConfig, templateConfig } = useTableConfig();
-  console.log('tableConfig', tableConfig);
 
   const { row, column, baseSize } = templateConfig;
 
   return (
     <div className={s.outine}>
       <div className={s.drawingBoard}>
+        <Button style={{ margin: '20px 0px' }} onClick={() => navigate(-1)}>
+          返回
+        </Button>
         <div
           className={`${s.gridContainer}`}
           style={{

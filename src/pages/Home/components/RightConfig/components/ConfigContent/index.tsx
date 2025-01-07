@@ -3,7 +3,7 @@
  * @Author: cg
  * @Date: 2024-11-20 16:36:53
  * @LastEditors: cg
- * @LastEditTime: 2024-12-26 09:30:57
+ * @LastEditTime: 2025-01-07 14:36:55
  */
 import React, { useState, memo, useEffect, useRef, useMemo } from 'react';
 import {
@@ -105,7 +105,7 @@ const ConfigContent: React.FC<IProps> = memo(() => {
       label: <div style={{ fontSize: '14px' }}>边设置：</div>,
       children: (
         <div style={{ position: 'relative' }}>
-          <Tooltip title="因为页面重叠相互覆盖等特殊场景，修改边框效果可能会不明显，需要两边同时修改">
+          <Tooltip title="因为存在两个单元格接触场景，可以两边同时修改样式，或者某一边影藏即可">
             <QuestionCircleOutlined style={{ position: 'absolute' }} />
           </Tooltip>
           <div className={s.square}>

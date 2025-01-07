@@ -3,7 +3,7 @@
  * @Author: cg
  * @Date: 2024-11-15 17:43:48
  * @LastEditors: cg
- * @LastEditTime: 2025-01-02 14:50:32
+ * @LastEditTime: 2025-01-07 15:34:31
  */
 import React, { memo, useEffect, useRef, useState } from 'react';
 import { Segmented, InputNumber, Tooltip, Button, Dropdown, type MenuProps } from 'antd';
@@ -56,8 +56,13 @@ const Header: React.FC<IProps> = memo((prop) => {
   const printOut = async () => {
     const editBorder = document.getElementById('editBorder');
     if (editBorder) {
+      console.log(111, editBorder);
+
       // setIsSpin(true);
-      const canvas = await html2canvas(editBorder);
+      const canvas = await html2canvas(editBorder, {
+        // width: editBorder.offsetWidth,
+        // height: 2000
+      });
       // 将Canvas转换为图片URL
       const imgData = canvas.toDataURL('image/png');
       // 创建一个<a>元素用于下载
@@ -95,6 +100,7 @@ const Header: React.FC<IProps> = memo((prop) => {
   return (
     <div className={s.conatiner}>
       <Segmented<string>
+        id="modeSelect"
         options={[tableModeStringEnum.INIT, tableModeStringEnum.EDIT]}
         value={
           tableMode === tableModeEnum.EDIT ? tableModeStringEnum.EDIT : tableModeStringEnum.INIT
@@ -121,8 +127,7 @@ const Header: React.FC<IProps> = memo((prop) => {
             输出
           </Button>
         </Dropdown>
-
-        <Button style={{ marginRight: 20 }} onClick={() => navigate('/show')}>
+        <Button style={{ marginRight: 20 }} onClick={() => navigate('show')}>
           预览
         </Button>
         <Tooltip

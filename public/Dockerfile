@@ -1,4 +1,3 @@
-# 打包测试1
 # 使用 Nginx 的官方镜像作为基础镜像
 FROM nginx:latest
 
