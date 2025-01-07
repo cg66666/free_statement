@@ -37,8 +37,6 @@ const Header: React.FC<IProps> = memo((prop) => {
 
   // 导出json
   const exportJson = () => {
-    console.log(111, tableConfig);
-
     const tableConfig2 = JSON.stringify(
       { tableConfig: tableConfig, templateConfig: templateConfig },
       null,
@@ -56,8 +54,6 @@ const Header: React.FC<IProps> = memo((prop) => {
   const printOut = async () => {
     const editBorder = document.getElementById('editBorder');
     if (editBorder) {
-      console.log(111, editBorder);
-
       // setIsSpin(true);
       const canvas = await html2canvas(editBorder, {
         // width: editBorder.offsetWidth,

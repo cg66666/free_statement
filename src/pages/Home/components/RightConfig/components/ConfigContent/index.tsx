@@ -360,7 +360,7 @@ const ConfigContent: React.FC<IProps> = memo(() => {
     const children = [...listRef.current.children];
     //@ts-ignore
     const nameList = children.map((dom) => dom.dataset.index);
-    console.log('nameList', nameList);
+    // console.log('nameList', nameList);
     const newObj: any = {};
     nameList.forEach((name) => {
       newObj[name] = tableConfig[curConfigTableItemName].children[name];
