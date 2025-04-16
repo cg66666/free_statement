@@ -3,13 +3,12 @@
  * @Author: cg
  * @Date: 2024-11-14 14:10:19
  * @LastEditors: cg
- * @LastEditTime: 2025-01-07 14:38:35
+ * @LastEditTime: 2025-04-16 23:59:04
  */
 // components/Home.js
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { Tour, type TourProps, message } from 'antd';
+import { Tour, type TourProps, message, Button } from 'antd';
 import { CloseCircleFilled, ExclamationCircleFilled } from '@ant-design/icons';
-import { Button } from 'antd';
 import { post } from '@/ajax';
 import {
   type tableItemConfigType,
@@ -172,7 +171,7 @@ const Home: React.FC = () => {
           2、页面编辑，可以配置当前单元块内部布局配置与内部详细组件配置。
         </>
       ),
-      target: () => document.getElementById('rightContent')
+      target: () => document.getElementById('rightContent')?.children[0]
     }
   ] as TourProps['steps'];
 
